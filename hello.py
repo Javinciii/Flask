@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request
+from flask import escape, url_for
 
 app = Flask(__name__)
 
@@ -25,3 +26,18 @@ def signin():
 
 if __name__ == '__main__':
     app.run()
+
+# @app.route('/user/<username>')
+# def user():
+#     return 'welcome'
+
+@app.route('/user/<name>', methods = ['GET', 'POST'])
+def user_page(name):
+    return 'User page %s' % escape(name)
+
+@app.route('/test_url')
+def test_url_for():
+    print((url_for('index')))
+    print(url_for('user_page', name = '哈哈'))
+    print(url_for('test_url_for', num = 2))
+    return 'test_url'
